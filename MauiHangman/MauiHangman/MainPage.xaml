@@ -11,7 +11,24 @@
                 Text="Hangman"
                 Style="{StaticResource Headline}"
                 SemanticProperties.HeadingLevel="Level1" />
-
+            
+            <VerticalStackLayout
+                Spacing="0">
+                
+                <Label
+                    Text="{Binding WinsMessage}"
+                    TextColor="DarkBlue"
+                    FontSize="20" />
+                
+                <Label
+                    Text="{Binding LossesMessage}"
+                    TextColor="Red"
+                    FontSize="20" />
+                
+            </VerticalStackLayout>    
+            
+            
+            
             <Image Source="gallows" Aspect="AspectFit" />
             
             <Editor
@@ -23,7 +40,7 @@
                 BackgroundColor="WhiteSmoke"
                 HeightRequest="250"
                 IsReadOnly="True" />
-
+            
             <Entry
                 x:Name="GuessEntry"
                 Placeholder="Enter your letter guess here"
@@ -32,6 +49,247 @@
                 TextColor="Black"
                 BackgroundColor="WhiteSmoke"
                 Completed="OnEntryCompleted" />
+            
+            <FlexLayout 
+                Direction="Row"
+                Wrap="Wrap"
+                >
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+                <Button
+                    Text="a" 
+                    Clicked="OnGuessBtnClicked"
+                    HorizontalOptions="Start"
+                    BackgroundColor="LightGray"
+                    TextColor="Black"
+                    Margin="5"
+                    FontSize="20"/>
+                
+            </FlexLayout>
             
             <Button
                 x:Name="GuessBtn"
