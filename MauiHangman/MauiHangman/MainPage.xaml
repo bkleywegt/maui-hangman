@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiHangman.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Label
+                Text="Hangman"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Image Source="gallows" Aspect="AspectFit" />
+            
+            <Editor
+                Placeholder=""
+                Text="{Binding GallowsMessage, Mode=TwoWay}"
+                FontSize="20"
+                FontAttributes="Bold"
+                TextColor="Black"
+                BackgroundColor="WhiteSmoke"
+                HeightRequest="250"
+                IsReadOnly="True" />
+
+            <Entry
+                x:Name="GuessEntry"
+                Placeholder="Enter your letter guess here"
+                Text="{Binding GuessMessage, Mode=TwoWay}"
+                FontSize="20"
+                TextColor="Black"
+                BackgroundColor="WhiteSmoke"
+                Completed="OnEntryCompleted" />
+            
+            <Button
+                x:Name="GuessBtn"
+                Text="Guess" 
+                SemanticProperties.Hint="Guess one of the letters in the word"
+                Clicked="OnGuessBtnClicked"
+                HorizontalOptions="Fill"
+                FontSize="20"/>
+            
+            <Label
+                Text="{Binding ErrorMessage}"
+                TextColor="Red"
+                FontSize="20"
+                IsVisible="{Binding IsErrorVisible}" />
+            
+            <Label
+                Text="{Binding GameMessage}"
+                TextColor="DarkBlue"
+                FontSize="20"
+                IsVisible="{Binding IsGameMsgVisible}" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,58 @@
+# .NET Core & .NET 5+ specific files
+bin/
+obj/
+
+# Visual Studio Code
+.vscode/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono auto-generated files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# MAUI specific folders and files
+AppPackages/
+*.app
+*.apk
+*.aab
+*.ipa
+
+# Log and crash reports
+*.log
+crashlytics/
+
+# Android specific files
+.idea/
+*.apk
+*.ap_
+.gradle/
+*/build/
+
+# Xcode files
+*.xcuserstate
+*.moved-aside
+*.xcassets
+*.swiftpm/
+*.xcodeproj/
+*.xcworkspace/
+
+# JetBrains Rider files
+.idea/
+.idea_modules/
+# Rider logs
+/.idea/*workspace.xml
+
+# End of file
