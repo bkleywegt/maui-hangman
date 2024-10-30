@@ -9,7 +9,6 @@ public partial class MainPage : ContentPage
     private string _hangmanWord;
     private string _guessWord;
     private string _guessLetter;
-    private bool _startAgain = false;
     private int _sessionWins = 0;
     private int _sessionLosses = 0;
     
@@ -18,36 +17,34 @@ public partial class MainPage : ContentPage
         InitializeComponent();
         BindingContext = new MainPageViewModel();
         SetWinsLossesMsgs();
+    }
+
+    private void OnPlayBtnClicked(object sender, EventArgs e)
+    {
+        PlayBtn.IsVisible = false;
         ResetGame();
     }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        GuessEntry.Focus();
-    }
     
-    private void OnEntryCompleted(object sender, System.EventArgs e)
-    {
-        if (_startAgain)
-        {
-            return;
-        }
-        
-        PlayGame();
-    }
-
     private void OnGuessBtnClicked(object sender, EventArgs e)
     {
-        if (_startAgain)
+        if (PlayBtn.IsVisible)
         {
-            ResetGame();
-            GuessBtn.Text = "Guess";
-            _startAgain = false;
             return;
         }
         
-        PlayGame();
+        var btn = sender as Button;
+
+        if (btn == null) return;
+        PlayGame(btn.Text);
+        DisableButton(btn);
+    }
+
+    private static void DisableButton(Button btn)
+    {
+        btn.BackgroundColor = Color.FromArgb("#D3D3D3");
+        btn.TextColor = Color.FromArgb("#A9A9A9");
+        btn.Opacity = 0.5;
+        btn.IsEnabled = false;
     }
 
     private string SpaceOut(string word)
@@ -61,21 +58,14 @@ public partial class MainPage : ContentPage
         return spacedWord;
     }
     
-    private void PlayGame()
+    private void PlayGame(string letter)
     {
         if (BindingContext is MainPageViewModel viewModel)
         {
-            if (viewModel.GuessMessage.Length != 1)
-            {
-                viewModel.ErrorMessage = "Please enter a single letter";
-                viewModel.IsErrorVisible = true;
-                return;
-            }
-            
             viewModel.ErrorMessage = "";
             viewModel.IsErrorVisible = false;
 
-            _guessLetter = viewModel.GuessMessage.ToLower().Trim();
+            _guessLetter = letter.ToLower().Trim();
             
             if (_hangmanWord.ToLower().Contains(_guessLetter))
             {
@@ -104,8 +94,7 @@ public partial class MainPage : ContentPage
                 SetWinsLossesMsgs();
                 viewModel.GameMessage = $"You got hanged!  The word was '{_hangmanWord}'";
                 viewModel.IsGameMsgVisible = true;
-                GuessBtn.Text = "Play Again";
-                _startAgain = true;
+                PlayBtn.IsVisible = true;
             }
             
             if (!_guessWord.Contains("_"))
@@ -115,12 +104,9 @@ public partial class MainPage : ContentPage
                 SetWinsLossesMsgs();
                 viewModel.GameMessage = "You won!";
                 viewModel.IsGameMsgVisible = true;
-                GuessBtn.Text = "Play Again";
-                _startAgain = true;
+                PlayBtn.IsVisible = true;
             }
         }
-
-        GuessEntry.Focus();
     }
 
     private void SetWinsLossesMsgs()
@@ -144,11 +130,24 @@ public partial class MainPage : ContentPage
 
         if (BindingContext is MainPageViewModel viewModel)
         {
+            viewModel.GameMessage = "";
             CreateGallows(viewModel);
         }
         else
         {
             throw new Exception("Incorrect binding context");
+        }
+
+        foreach (var childView in GuessesLayout.Children)
+        {
+            var btn = childView as Button;
+            
+            if (btn == null) continue;
+
+            btn.BackgroundColor = Colors.LightGray;
+            btn.TextColor = Colors.Black;
+            btn.Opacity = 1;
+            btn.IsEnabled = true;
         }
     }
     
