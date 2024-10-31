@@ -1,4 +1,5 @@
 ﻿using MauiHangman.ViewModels;
+using Microsoft.Maui.Storage;
 
 namespace MauiHangman;
 
@@ -8,54 +9,63 @@ public partial class MainPage : ContentPage
     private string _hangmanWord;
     private string _guessWord;
     private string _guessLetter;
-    private bool _startAgain = false;
+    private int _sessionWins = 0;
+    private int _sessionLosses = 0;
     
     public MainPage()
     {
         InitializeComponent();
         BindingContext = new MainPageViewModel();
+        SetWinsLossesMsgs();
+    }
+
+    private void OnPlayBtnClicked(object sender, EventArgs e)
+    {
+        PlayBtn.IsVisible = false;
         ResetGame();
     }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        GuessEntry.Focus();
-    }
     
-    private void OnEntryCompleted(object sender, System.EventArgs e)
-    {
-        PlayGame();
-    }
-
     private void OnGuessBtnClicked(object sender, EventArgs e)
     {
-        PlayGame();
+        if (PlayBtn.IsVisible)
+        {
+            return;
+        }
+        
+        var btn = sender as Button;
+
+        if (btn == null) return;
+        PlayGame(btn.Text);
+        DisableButton(btn);
     }
 
-    private void PlayGame()
+    private static void DisableButton(Button btn)
+    {
+        btn.BackgroundColor = Color.FromArgb("#D3D3D3");
+        btn.TextColor = Color.FromArgb("#A9A9A9");
+        btn.Opacity = 0.5;
+        btn.IsEnabled = false;
+    }
+
+    private string SpaceOut(string word)
+    {
+        string spacedWord = "";
+        foreach (char c in word)
+        {
+            spacedWord += c + " ";
+        }
+
+        return spacedWord;
+    }
+    
+    private void PlayGame(string letter)
     {
         if (BindingContext is MainPageViewModel viewModel)
         {
-            if (_startAgain)
-            {
-                ResetGame();
-                GuessBtn.Text = "Guess";
-                _startAgain = false;
-                return;
-            }
-            
-            if (viewModel.GuessMessage.Length != 1)
-            {
-                viewModel.ErrorMessage = "Please enter a single letter";
-                viewModel.IsErrorVisible = true;
-                return;
-            }
-            
             viewModel.ErrorMessage = "";
             viewModel.IsErrorVisible = false;
 
-            _guessLetter = viewModel.GuessMessage.ToLower().Trim();
+            _guessLetter = letter.ToLower().Trim();
             
             if (_hangmanWord.ToLower().Contains(_guessLetter))
             {
@@ -79,24 +89,39 @@ public partial class MainPage : ContentPage
             
             if (_count == 10)
             {
+                Preferences.Set("Losses", Preferences.Get("Losses", 0) + 1);
+                _sessionLosses++;
+                SetWinsLossesMsgs();
                 viewModel.GameMessage = $"You got hanged!  The word was '{_hangmanWord}'";
                 viewModel.IsGameMsgVisible = true;
-                GuessBtn.Text = "Play Again";
-                _startAgain = true;
+                PlayBtn.IsVisible = true;
             }
             
             if (!_guessWord.Contains("_"))
             {
+                Preferences.Set("Wins", Preferences.Get("Wins", 0) + 1);
+                _sessionWins++;
+                SetWinsLossesMsgs();
                 viewModel.GameMessage = "You won!";
                 viewModel.IsGameMsgVisible = true;
-                GuessBtn.Text = "Play Again";
-                _startAgain = true;
+                PlayBtn.IsVisible = true;
             }
         }
-
-        GuessEntry.Focus();
     }
 
+    private void SetWinsLossesMsgs()
+    {
+        if (BindingContext is MainPageViewModel viewModel)
+        {
+            viewModel.WinsMessage = $"Wins (AllTime) {Preferences.Get("Wins", 0)} (Session) {_sessionWins}";
+            viewModel.LossesMessage = $"Losses (AllTime) {Preferences.Get("Losses", 0)} (Session) {_sessionLosses}";
+        }
+        else
+        {
+            throw new Exception("Incorrect binding context");
+        }
+    }
+    
     private void ResetGame()
     {
         _hangmanWord = Helpers.Helper.GetRandomLineFromEmbeddedResource("MauiHangman.Resources.wordlist.10000.txt");
@@ -105,11 +130,24 @@ public partial class MainPage : ContentPage
 
         if (BindingContext is MainPageViewModel viewModel)
         {
+            viewModel.GameMessage = "";
             CreateGallows(viewModel);
         }
         else
         {
             throw new Exception("Incorrect binding context");
+        }
+
+        foreach (var childView in GuessesLayout.Children)
+        {
+            var btn = childView as Button;
+            
+            if (btn == null) continue;
+
+            btn.BackgroundColor = Colors.LightGray;
+            btn.TextColor = Colors.Black;
+            btn.Opacity = 1;
+            btn.IsEnabled = true;
         }
     }
     
@@ -124,7 +162,7 @@ public partial class MainPage : ContentPage
    
    
    
-{_guessWord}";
+{SpaceOut(_guessWord)}";
                 break;
             case 1:viewModel.GallowsMessage =
                     $@"
@@ -134,7 +172,7 @@ public partial class MainPage : ContentPage
 |   
 |
    
-{_guessWord}";
+{SpaceOut(_guessWord)}";
                 break;
             case 2:viewModel.GallowsMessage =
                     $@"
@@ -144,7 +182,7 @@ _______
 |   
 |
    
-{_guessWord}";
+{SpaceOut(_guessWord)}";
                 break;
             case 3:viewModel.GallowsMessage =
                 $@"
@@ -154,7 +192,7 @@ _______
 |   
 |
    
-{_guessWord}";
+{SpaceOut(_guessWord)}";
                 break;
             case 4:viewModel.GallowsMessage =
                     $@"
@@ -164,7 +202,7 @@ _______
 |   
 |
    
-{_guessWord}";
+{SpaceOut(_guessWord)}";
                 break;
             case 5:viewModel.GallowsMessage =
                     $@"
@@ -174,7 +212,7 @@ _______
 |   
 |
    
-{_guessWord}";
+{SpaceOut(_guessWord)}";
                 break;
             case 6:viewModel.GallowsMessage =
                     $@"
@@ -184,7 +222,7 @@ _______
 |    |
 |
    
-{_guessWord}";
+{SpaceOut(_guessWord)}";
                 break;
             case 7:viewModel.GallowsMessage =
                     $@"
@@ -194,7 +232,7 @@ _______
 |   -|
 |
    
-{_guessWord}";
+{SpaceOut(_guessWord)}";
                 break;
             case 8:viewModel.GallowsMessage =
                     $@"
@@ -204,7 +242,7 @@ _______
 |   -|-
 |
     
-{_guessWord}";
+{SpaceOut(_guessWord)}";
                 break;
             case 9:viewModel.GallowsMessage =
                     $@"
@@ -214,7 +252,7 @@ _______
 |   -|-
 |   / 
 
-{_guessWord}";
+{SpaceOut(_guessWord)}";
                 break;
             case 10:viewModel.GallowsMessage =
                     $@"
@@ -224,7 +262,7 @@ _______
 |   -|-
 |   / \
 
-{_guessWord}";
+{SpaceOut(_guessWord)}";
                 break;
         }
     }

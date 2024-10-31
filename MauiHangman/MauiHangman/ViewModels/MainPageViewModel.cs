@@ -69,6 +69,28 @@ public class MainPageViewModel : INotifyPropertyChanged
             OnPropertyChanged(nameof(IsErrorVisible));
         }
     }
+    
+    private string _winsMessage = "";
+    public string WinsMessage
+    {
+        get => _winsMessage;
+        set
+        {
+            _winsMessage = value;
+            OnPropertyChanged(nameof(WinsMessage));
+        }
+    }
+    
+    private string _lossesMessage = "";
+    public string LossesMessage
+    {
+        get => _lossesMessage;
+        set
+        {
+            _lossesMessage = value;
+            OnPropertyChanged(nameof(LossesMessage));
+        }
+    }
 
     public event PropertyChangedEventHandler? PropertyChanged;
     protected void OnPropertyChanged(string propertyName) =>
